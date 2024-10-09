@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            >
+
+            <ImageView
+                android:id="@+id/recipe_img"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/img_recipe_1" />
+
+            <ImageView
+                android:id="@+id/recipe_starbg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:src="@drawable/whitebox_small"
+                app:layout_constraintEnd_toEndOf="@+id/recipe_img"
+                app:layout_constraintStart_toStartOf="@+id/recipe_img"
+                app:layout_constraintTop_toTopOf="@+id/recipe_img" />
+
+            <ImageView
+                android:id="@+id/recipe_star"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/star"
+                app:layout_constraintBottom_toBottomOf="@id/recipe_starbg"
+                app:layout_constraintEnd_toEndOf="@+id/recipe_starbg"
+                app:layout_constraintTop_toTopOf="@+id/recipe_starbg" />
+
+
+            <TextView
+                android:id="@+id/star_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/lexend"
+                android:text="4.5"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/recipe_starbg"
+                app:layout_constraintStart_toStartOf="@+id/recipe_starbg"
+                app:layout_constraintTop_toTopOf="@+id/recipe_starbg" />
+
+            <TextView
+                android:id="@+id/recipe_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend_bold"
+                android:text="Japaneese Noodles"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/recipe_img"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/recipe_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend"
+                android:text="Western Provice, Main course"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/recipe_img"
+                app:layout_constraintTop_toBottomOf="@+id/recipe_name" />
+
+            <ImageView
+                android:id="@+id/img_clock"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/recipe_time"
+                app:layout_constraintStart_toEndOf="@+id/recipe_img"
+                app:layout_constraintTop_toTopOf="@+id/recipe_time"
+                app:srcCompat="@drawable/clock" />
+
+            <TextView
+                android:id="@+id/recipe_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend"
+                android:text="10 Minutes"
+                android:textColor="#666366"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/img_clock"
+                app:layout_constraintTop_toBottomOf="@+id/recipe_desc" />
+
+            <ImageView
+                android:id="@+id/recipe_meal1"
+                android:layout_width="114dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/whitebox"
+                app:layout_constraintStart_toEndOf="@+id/recipe_img"
+                app:layout_constraintTop_toBottomOf="@id/recipe_time" />
+
+            <TextView
+                android:id="@+id/recipe_meal1_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend"
+                android:text="Dinner"
+                android:textColor="#666366"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@id/recipe_meal1"
+                app:layout_constraintEnd_toEndOf="@id/recipe_meal1"
+                app:layout_constraintStart_toStartOf="@id/recipe_meal1"
+                app:layout_constraintTop_toTopOf="@id/recipe_meal1" />
+
+            <ImageView
+                android:id="@+id/recipe_meal2"
+                android:layout_width="114dp"
+                android:layout_height="26dp"
+                android:src="@drawable/whitebox"
+                app:layout_constraintBottom_toBottomOf="@+id/recipe_meal1"
+                app:layout_constraintStart_toEndOf="@+id/recipe_meal1"
+                app:layout_constraintTop_toTopOf="@+id/recipe_meal1"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/recipe_meal2_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend"
+                android:text="Chineese"
+                android:textColor="#666366"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/recipe_meal2"
+                app:layout_constraintEnd_toEndOf="@+id/recipe_meal2"
+                app:layout_constraintStart_toStartOf="@+id/recipe_meal2"
+                app:layout_constraintTop_toTopOf="@+id/recipe_meal2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

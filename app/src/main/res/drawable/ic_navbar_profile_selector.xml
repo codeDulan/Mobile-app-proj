@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--    State List Drawable for Profile-->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    Filled icon for selected state-->
+    <item android:drawable="@drawable/ic_navbar_profile_48dp_fill" android:state_checked="true" />
+<!--    Outlined icon for unselected state-->
+    <item android:drawable="@drawable/ic_navbar_profile_48dp" android:state_checked="false" />
+
+</selector>

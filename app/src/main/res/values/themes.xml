@@ -1,0 +1,23 @@
+ <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.DishDash" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!--IM/2021/025 - avoid android default logo before splash screen-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--=============================================================-->
+
+        <!-- Override Material theme colors -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryContainer">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/textColor</item>  <!-- Text color on primary buttons -->
+        <item name="colorSecondary">@color/primaryDarkColor</item>
+
+    </style>
+
+    <style name="Theme.DishDash" parent="Base.Theme.DishDash" />
+
+
+
+</resources>

@@ -1,0 +1,78 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Add Button -->
+        <ImageButton
+            android:id="@+id/btn_add_recipe"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/circle_button"
+            android:src="@drawable/ic_add_fill_50px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:elevation="6dp"
+            android:padding="10dp"/>
+
+        <!-- Scrollable Content -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Profile Image -->
+                <ImageView
+                    android:id="@+id/profile_picture"
+                    android:layout_width="161dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="80dp"
+                    android:src="@drawable/alice" />
+
+                <!-- User Name -->
+                <TextView
+                    android:id="@+id/userNameid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Arya Muller"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <!-- Section Title -->
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="MY RECIPES"
+                    android:textColor="#4E4D4D"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <!-- RecyclerView for Recipes -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lookrecipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp" />
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

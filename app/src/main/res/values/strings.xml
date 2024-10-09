@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Dish Dash</string>
+    <string name="join_us_now">Join Us Now!</string>
+    <string name="sign_in">Sign In</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="back_button" />
+    <string name="default_web_client_id">186626342891-pkbjpllmkonq3l410e0723cr7pu62b62.apps.googleusercontent.com.apps.googleusercontent.com</string>
+
+
+    <string name="facebook_app_id">1234</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
+
+
+    <string-array name="itemselect">
+        <item>Cappuccino</item>
+        <item>Espresso</item>
+        <item>Mocha</item>
+        <item>Caffè Americano</item>
+        <item>Cafe Zorro</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

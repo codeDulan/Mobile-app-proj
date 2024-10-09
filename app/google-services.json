@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "186626342891",
+    "project_id": "recipies-8b3e5",
+    "storage_bucket": "recipies-8b3e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186626342891:android:e8f73cc3c5224c290da3ae",
+        "android_client_info": {
+          "package_name": "com.example.dishdash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1QYDbRv4SvfoHdBI2psvgAlKWgKiVXeY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186626342891:android:7fcb99c9c7e2e6490da3ae",
+        "android_client_info": {
+          "package_name": "com.example.mysignup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1QYDbRv4SvfoHdBI2psvgAlKWgKiVXeY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="Home"
+        android:id="@+id/navBar_Home"
+        android:icon="@drawable/ic_navbar_home_selector"
+        />
+    <item android:title="Favorites"
+        android:id="@+id/navBar_Favorites"
+        android:icon="@drawable/ic_navbar_favorites_selector"
+        />
+    <item android:title="Profile"
+        android:id="@+id/navBar_Profile"
+        android:icon="@drawable/ic_navbar_profile_selector"
+        />
+</menu>

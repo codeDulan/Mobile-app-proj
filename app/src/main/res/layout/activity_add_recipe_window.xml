@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addRecipeWindow"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#0C9A61"
+    android:backgroundTint="#00FFFFFF"
+    android:foregroundTint="#00FFFFFF"
+    tools:context=".AddRecipeWindow">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lexend_bold"
+            android:text="Create Recipe"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.068" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="32dp"
+            android:layout_height="29dp"
+            android:backgroundTint="#00FFFFFF"
+            android:foreground="@drawable/arrow"
+            android:textColorLink="#00FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.019"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0044" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-16dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <ImageButton
+                android:id="@+id/resipe_image"
+                android:layout_width="325dp"
+                android:layout_height="183dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/video" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="19dp"
+                android:fontFamily="@font/lexend_medium"
+                android:text="Title"
+                android:textColor="#000000"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/recipName"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_corner"
+                android:drawablePadding="20dp"
+                android:fontFamily="lexend"
+                android:hint="Dum Biriyani"
+                android:padding="18dp"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="19dp"
+                android:fontFamily="@font/lexend_medium"
+                android:text="Category"
+                android:textColor="#000000"
+                android:textSize="18dp" />
+
+            <Spinner
+                android:id="@+id/static_spinner"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lexend_medium"
+                android:text="Description"
+                android:textColor="#000000"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="350dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_corner"
+                android:drawablePadding="20dp"
+                android:fontFamily="lexend"
+                android:hint="Traditional Indian dish"
+                android:padding="18dp"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lexend_medium"
+                android:text="Recipe Time"
+                android:textColor="#000000"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/recipeTime"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_corner"
+                android:drawablePadding="20dp"
+                android:fontFamily="lexend"
+                android:hint="30 Minutes"
+                android:padding="18dp"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lexend_medium"
+                android:text="Ingredients"
+                android:textColor="#000000"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/ingredients"
+                android:layout_width="350dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_corner"
+                android:drawablePadding="20dp"
+                android:fontFamily="lexend"
+                android:gravity="start|top"
+                android:hint="Rice,Chicken"
+                android:minLines="6"
+                android:padding="18dp"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lexend_medium"
+                android:text="Instructions"
+                android:textColor="#000000"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/instructions"
+                android:layout_width="350dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_corner"
+                android:drawablePadding="20dp"
+                android:fontFamily="lexend"
+                android:gravity="start|top"
+                android:hint="Wash Rice"
+                android:minLines="6"
+                android:padding="18dp"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/publishBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="140dp"
+                android:backgroundTint="#0C9A61"
+                android:fontFamily="@font/lexend_bold"
+                android:text="Publish"
+                android:textSize="16sp"
+                app:cornerRadius="12dp" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

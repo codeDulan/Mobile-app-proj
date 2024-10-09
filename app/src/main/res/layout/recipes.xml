@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/maineka"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="#191919">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardid"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="55dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/recipePhoto"
+
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintStart_toStartOf="@id/cardid"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/recipeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:text="Dum Biriyani"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/cardid"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recipeDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Western Food, Main Course"
+        app:layout_constraintStart_toEndOf="@+id/cardid"
+        app:layout_constraintTop_toBottomOf="@+id/recipeName" />
+
+    <ImageView
+        android:id="@+id/clockimg"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="1.5dp"
+        app:layout_constraintStart_toEndOf="@+id/cardid"
+        app:layout_constraintTop_toBottomOf="@+id/recipeDetail"
+        app:srcCompat="@drawable/clock" />
+
+    <TextView
+        android:id="@+id/timetext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="10 minute"
+        app:layout_constraintStart_toEndOf="@+id/clockimg"
+        app:layout_constraintTop_toBottomOf="@+id/recipeDetail" />
+
+    <Button
+        android:id="@+id/editbtn"
+        android:layout_width="89dp"
+        android:layout_height="32dp"
+        android:text="Edit"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/clockimg"
+        app:layout_constraintTop_toBottomOf="@+id/clockimg" />
+
+    <Button
+        android:id="@+id/deletebtn"
+        android:layout_width="89dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:text="Delete"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/editbtn"
+        app:layout_constraintTop_toBottomOf="@+id/timetext" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

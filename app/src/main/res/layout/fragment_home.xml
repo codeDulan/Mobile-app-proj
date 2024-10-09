@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <SearchView
+            android:id="@+id/search_bar"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/search_bg"
+            android:focusable="auto"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search for a recipe..."
+            android:searchHintIcon="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_bar">
+
+
+            <TextView
+                android:id="@+id/lbl_Categories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend_semibold"
+                android:text="Categories"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_breakfast"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/breakfast"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_Categories" />
+
+            <TextView
+                android:id="@+id/lbl_breakfast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend"
+                android:text="Breakfast"
+                app:layout_constraintEnd_toEndOf="@+id/btn_breakfast"
+                app:layout_constraintStart_toStartOf="@+id/btn_breakfast"
+                app:layout_constraintTop_toBottomOf="@+id/btn_breakfast" />
+
+            <ImageButton
+                android:id="@+id/btn_lunch"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="43dp"
+                android:background="@drawable/lunch"
+                app:layout_constraintStart_toEndOf="@+id/btn_breakfast"
+                app:layout_constraintTop_toTopOf="@+id/btn_breakfast" />
+
+
+            <TextView
+                android:id="@+id/lbl_lunch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend"
+                android:text="Lunch"
+                app:layout_constraintEnd_toEndOf="@+id/btn_lunch"
+                app:layout_constraintStart_toStartOf="@+id/btn_lunch"
+                app:layout_constraintTop_toBottomOf="@+id/btn_lunch" />
+
+            <ImageButton
+                android:id="@+id/btn_dinner"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="44dp"
+                android:background="@drawable/dinner"
+                app:layout_constraintStart_toEndOf="@+id/btn_lunch"
+                app:layout_constraintTop_toTopOf="@+id/btn_lunch" />
+
+
+            <TextView
+                android:id="@+id/lbl_dinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend"
+                android:text="Dinner"
+                app:layout_constraintEnd_toEndOf="@+id/btn_dinner"
+                app:layout_constraintStart_toStartOf="@+id/btn_dinner"
+                app:layout_constraintTop_toBottomOf="@+id/btn_dinner" />
+
+            <ImageButton
+                android:id="@+id/btn_indian"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/indian"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_dinner"
+                app:layout_constraintTop_toTopOf="@+id/btn_dinner" />
+
+
+            <TextView
+                android:id="@+id/lbl_indian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend"
+                android:text="Indian"
+                app:layout_constraintEnd_toEndOf="@+id/btn_indian"
+                app:layout_constraintStart_toStartOf="@+id/btn_indian"
+                app:layout_constraintTop_toBottomOf="@+id/btn_indian" />
+
+            <ImageButton
+                android:id="@+id/btn_chinese"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/chieses"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_breakfast" />
+
+            <TextView
+                android:id="@+id/lbl_chinese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend"
+                android:text="Chineese"
+                app:layout_constraintEnd_toEndOf="@+id/btn_chinese"
+                app:layout_constraintStart_toStartOf="@+id/btn_chinese"
+                app:layout_constraintTop_toBottomOf="@+id/btn_chinese" />
+
+            <ImageButton
+                android:id="@+id/btn_italian"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="43dp"
+                android:background="@drawable/italian"
+                app:layout_constraintStart_toEndOf="@+id/btn_chinese"
+                app:layout_constraintTop_toTopOf="@+id/btn_chinese" />
+
+            <TextView
+                android:id="@+id/lbl_italian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend"
+                android:text="Italian"
+                app:layout_constraintEnd_toEndOf="@+id/btn_italian"
+                app:layout_constraintStart_toStartOf="@+id/btn_italian"
+                app:layout_constraintTop_toBottomOf="@+id/btn_italian" />
+
+            <ImageButton
+                android:id="@+id/btn_soups"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="44dp"
+                android:background="@drawable/soups"
+                app:layout_constraintStart_toEndOf="@+id/btn_italian"
+                app:layout_constraintTop_toTopOf="@+id/btn_italian" />
+
+            <TextView
+                android:id="@+id/lbl_soups"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend"
+                android:text="Soups"
+                app:layout_constraintEnd_toEndOf="@+id/btn_soups"
+                app:layout_constraintStart_toStartOf="@+id/btn_soups"
+                app:layout_constraintTop_toBottomOf="@+id/btn_soups" />
+
+            <ImageButton
+                android:id="@+id/btn_desserts"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/desert"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_soups"
+                app:layout_constraintTop_toTopOf="@+id/btn_soups" />
+
+            <TextView
+                android:id="@+id/lbl_deserts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lexend"
+                android:text="Deserts"
+                app:layout_constraintEnd_toEndOf="@+id/btn_desserts"
+                app:layout_constraintStart_toStartOf="@+id/btn_desserts"
+                app:layout_constraintTop_toBottomOf="@+id/btn_desserts" />
+
+            <TextView
+                android:id="@+id/lbl_RecommendedRecipes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/lexend_semibold"
+                android:text="Recommended Recipes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_chinese" />
+
+            <ImageButton
+                android:id="@+id/btn_seemore"
+                android:layout_width="77dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="26dp"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="@drawable/seemore"
+                android:text="Button"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_RecommendedRecipes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbl_RecommendedRecipes" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeScreen_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
