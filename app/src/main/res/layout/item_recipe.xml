@@ -29,14 +29,22 @@
             android:layout_marginEnd="8dp"
             >
 
-            <ImageView
-                android:id="@+id/recipe_img"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/recipe_img_card"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:layout_marginStart="4dp"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/img_recipe_1" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/recipe_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/img_picnic" />
+            </androidx.cardview.widget.CardView>
 
             <ImageView
                 android:id="@+id/recipe_starbg"
@@ -44,9 +52,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="120dp"
                 android:src="@drawable/whitebox_small"
-                app:layout_constraintEnd_toEndOf="@+id/recipe_img"
-                app:layout_constraintStart_toStartOf="@+id/recipe_img"
-                app:layout_constraintTop_toTopOf="@+id/recipe_img" />
+                app:layout_constraintEnd_toEndOf="@id/recipe_img_card"
+                app:layout_constraintStart_toStartOf="@id/recipe_img_card"
+                app:layout_constraintTop_toTopOf="@id/recipe_img_card" />
 
             <ImageView
                 android:id="@+id/recipe_star"
@@ -57,7 +65,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/recipe_starbg"
                 app:layout_constraintEnd_toEndOf="@+id/recipe_starbg"
                 app:layout_constraintTop_toTopOf="@+id/recipe_starbg" />
-
 
             <TextView
                 android:id="@+id/star_lbl"
@@ -81,7 +88,7 @@
                 android:text="Japaneese Noodles"
                 android:textColor="#000000"
                 android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@+id/recipe_img"
+                app:layout_constraintStart_toEndOf="@id/recipe_img_card"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -90,14 +97,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/lexend"
-                android:text="Western Provice, Main course"
                 android:ellipsize="marquee"
+                android:fontFamily="@font/lexend"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
+                android:text="Western Provice, Main course"
                 android:textColor="#000000"
                 android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@+id/recipe_img"
+                app:layout_constraintStart_toEndOf="@id/recipe_img_card"
                 app:layout_constraintTop_toBottomOf="@+id/recipe_name" />
 
             <ImageView
@@ -106,7 +113,7 @@
                 android:layout_height="17dp"
                 android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/recipe_time"
-                app:layout_constraintStart_toEndOf="@+id/recipe_img"
+                app:layout_constraintStart_toEndOf="@id/recipe_img_card"
                 app:layout_constraintTop_toTopOf="@+id/recipe_time"
                 app:srcCompat="@drawable/clock" />
 
@@ -130,7 +137,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/whitebox"
-                app:layout_constraintStart_toEndOf="@+id/recipe_img"
+                app:layout_constraintStart_toEndOf="@id/recipe_img_card"
                 app:layout_constraintTop_toBottomOf="@id/recipe_time" />
 
             <TextView
