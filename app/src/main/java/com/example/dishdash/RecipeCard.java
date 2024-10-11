@@ -5,8 +5,12 @@ public class RecipeCard {
     private String name;
     private String description;
     private String duration;
-    private String mealtype1;
-    private int image;
+    private String mealType;
+    private String imageURL;
+
+    public RecipeCard() {
+        // Default constructor required for calls to DataSnapshot.getValue(RecipeCard.class)
+    }
 
     public String getName() {
         return name;
@@ -20,20 +24,19 @@ public class RecipeCard {
         return duration;
     }
 
-    public String getMealType1() {
-        return mealtype1;
+    public String getMealType() {
+        return mealType;
     }
 
-
-    public int getImage() {
-        return image;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public RecipeCard(String name, String description, String duration, String mealtype1, int image) {
+    public RecipeCard(String name, String description, String duration, String mealType, String imageURL) {
         this.name = name;
         this.description = description;
         this.duration = duration;
-        this.mealtype1 = mealtype1;
-        this.image = image;
+        this.mealType = mealType;
+        this.imageURL = imageURL;
     }
 }
