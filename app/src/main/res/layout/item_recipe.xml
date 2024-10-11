@@ -153,28 +153,6 @@
                 app:layout_constraintStart_toStartOf="@id/recipe_meal1"
                 app:layout_constraintTop_toTopOf="@id/recipe_meal1" />
 
-            <ImageView
-                android:id="@+id/recipe_meal2"
-                android:layout_width="114dp"
-                android:layout_height="26dp"
-                android:src="@drawable/whitebox"
-                app:layout_constraintBottom_toBottomOf="@+id/recipe_meal1"
-                app:layout_constraintStart_toEndOf="@+id/recipe_meal1"
-                app:layout_constraintTop_toTopOf="@+id/recipe_meal1"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/recipe_meal2_lbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lexend"
-                android:text="Chineese"
-                android:textColor="#666366"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/recipe_meal2"
-                app:layout_constraintEnd_toEndOf="@+id/recipe_meal2"
-                app:layout_constraintStart_toStartOf="@+id/recipe_meal2"
-                app:layout_constraintTop_toTopOf="@+id/recipe_meal2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

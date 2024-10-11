@@ -1,13 +1,21 @@
 package com.example.dishdash;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +24,7 @@ public class Home extends Fragment {
     private RecyclerView recyclerView;
     private RecipeCardAdapter recipeAdapter;
     private List<RecipeCard> recipeList;
+    private DatabaseReference databaseReference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,29 +33,44 @@ public class Home extends Fragment {
         recyclerView = view.findViewById(R.id.homeScreen_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        recyclerView.setHasFixedSize(true);
-
-        // Sample data
         recipeList = new ArrayList<>();
-        recipeList.add(new RecipeCard("Japanese Noodles", "Western Province, Main Course", "10 Minutes", "Dinner", "Sri Lankan",R.drawable.img_recipe_2));
-        recipeList.add(new RecipeCard("Chinese Fried Rice", "Chinese, Main Course", "15 Minutes", "Lunch", "American",R.drawable.img_recipe_3));
-        recipeList.add(new RecipeCard("Italian Pasta", "Italian, Main Course", "20 Minutes", "Dinner", "Italian",R.drawable.img_recipe_4));
-        recipeList.add(new RecipeCard("Mexican Tacos", "Mexican, Main Course", "5 Minutes", "Breakfast", "Mexican",R.drawable.img_recipe_5));
-        recipeList.add(new RecipeCard("Indian Curry", "Indian, Main Course", "30 Minutes", "Dinner", "Indian",R.drawable.img_recipe_6));
-
-        // Initialize the adapter with a click listener
-        recipeAdapter = new RecipeCardAdapter(recipeList, new RecipeCardAdapter.OnRecipeClickListener() {
-            @Override
-            public void onRecipeClick(RecipeCard recipe) {
-                // Intent to navigate to the ViewRecipe activity
-                Intent intent = new Intent(getActivity(), ViewRecipe.class);
-                startActivity(intent);
-            }
+        recipeAdapter = new RecipeCardAdapter(recipeList, recipe -> {
+            // You can handle click events here if necessary
         });
 
         // Set the adapter to the RecyclerView
         recyclerView.setAdapter(recipeAdapter);
 
+        // Get a reference to the Firebase database
+        databaseReference = FirebaseDatabase.getInstance().getReference("recipes");
+
+        // Fetch data from Firebase
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                recipeList.clear(); // Clear the list to avoid duplicates
+                for (DataSnapshot recipeSnapshot : snapshot.getChildren()) {
+                    // Fetch each field from the database
+                    String name = recipeSnapshot.child("name").getValue(String.class);
+                    String description = recipeSnapshot.child("description").getValue(String.class);
+                    String time = recipeSnapshot.child("time").getValue(String.class);
+                    String category = recipeSnapshot.child("category").getValue(String.class);
+                    String imageUrl = recipeSnapshot.child("image").getValue(String.class); // Image URL
+
+                    // Add the RecipeCard object to the list
+                    recipeList.add(new RecipeCard(name, description, time, category, imageUrl));
+                }
+                // Notify adapter about data changes
+                recipeAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle possible errors
+            }
+        });
+
         return view;
+
     }
 }
