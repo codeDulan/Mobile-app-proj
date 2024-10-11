@@ -28,11 +28,11 @@ public class Home extends Fragment {
 
         // Sample data
         recipeList = new ArrayList<>();
-        recipeList.add(new RecipeCard("Japanese Noodles", "Western Province, Main Course", "10 Minutes", "Dinner", "Sri Lankan",R.drawable.img_recipe_2));
-        recipeList.add(new RecipeCard("Chinese Fried Rice", "Chinese, Main Course", "15 Minutes", "Lunch", "American",R.drawable.img_recipe_3));
-        recipeList.add(new RecipeCard("Italian Pasta", "Italian, Main Course", "20 Minutes", "Dinner", "Italian",R.drawable.img_recipe_4));
-        recipeList.add(new RecipeCard("Mexican Tacos", "Mexican, Main Course", "5 Minutes", "Breakfast", "Mexican",R.drawable.img_recipe_5));
-        recipeList.add(new RecipeCard("Indian Curry", "Indian, Main Course", "30 Minutes", "Dinner", "Indian",R.drawable.img_recipe_6));
+        recipeList.add(new RecipeCard("Japanese Noodles", "Western Province, Main Course", "10 Minutes", "Dinner",R.drawable.img_recipe_2));
+        recipeList.add(new RecipeCard("Chinese Fried Rice", "Chinese, Main Course", "15 Minutes", "Lunch",R.drawable.img_recipe_3));
+        recipeList.add(new RecipeCard("Italian Pasta", "Italian, Main Course", "20 Minutes", "Dinner",R.drawable.img_recipe_4));
+        recipeList.add(new RecipeCard("Mexican Tacos", "Mexican, Main Course", "5 Minutes", "Breakfast",R.drawable.img_recipe_5));
+        recipeList.add(new RecipeCard("Indian Curry", "Indian, Main Course", "30 Minutes", "Dinner",R.drawable.img_recipe_6));
 
         // Initialize the adapter with a click listener
         recipeAdapter = new RecipeCardAdapter(recipeList, new RecipeCardAdapter.OnRecipeClickListener() {

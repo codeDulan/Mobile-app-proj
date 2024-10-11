@@ -37,7 +37,6 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
         holder.recipeDescription.setText(recipe.getDescription());
         holder.recipeDuration.setText(recipe.getDuration());
         holder.recipeMeal1.setText(recipe.getMealType1());
-        holder.recipeMeal2.setText(recipe.getMealType2());
 
         // Set click listener for the recipe card
         holder.itemView.setOnClickListener(v -> listener.onRecipeClick(recipe));
@@ -51,7 +50,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
 
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
         ImageView recipeImage;
-        TextView recipeName, recipeDescription, recipeDuration, recipeMeal1, recipeMeal2;
+        TextView recipeName, recipeDescription, recipeDuration, recipeMeal1;
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,7 +59,6 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
             recipeDescription = itemView.findViewById(R.id.recipe_desc);
             recipeDuration = itemView.findViewById(R.id.recipe_time);
             recipeMeal1 = itemView.findViewById(R.id.recipe_meal1_lbl);
-            recipeMeal2 = itemView.findViewById(R.id.recipe_meal2_lbl);
         }
     }
 
