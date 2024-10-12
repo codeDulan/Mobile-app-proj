@@ -35,23 +35,15 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         RecipeCard recipe = recipeList.get(position);
 
-        // Use Glide to load the image from URL with placeholder and error handling
-        if (recipe.getImageURL() != null && !recipe.getImageURL().isEmpty()) {
-            Glide.with(holder.itemView.getContext())
-                    .load(recipe.getImageURL())
-                    .placeholder(R.drawable.img_placeholder) // Show placeholder while loading
-                    .error(R.drawable.img_error) // Show this if there's an error
-                    .into(holder.recipeImage);
-        } else {
-            // In case image URL is missing, show a default image
-            holder.recipeImage.setImageResource(R.drawable.img_default);
-        }
+        // Use Glide to load the image from URL
+        Glide.with(holder.itemView.getContext())
+                .load(recipe.getImageURL()) // Get the image URL string
+                .into(holder.recipeImage); // Load into ImageView
 
-        // Set other data
         holder.recipeName.setText(recipe.getName());
         holder.recipeDescription.setText(recipe.getDescription());
         holder.recipeDuration.setText(recipe.getDuration());
-        holder.recipeMeal.setText(recipe.getMealType());
+        holder.recipeMeal1.setText(recipe.getMealType());
 
         // Set click listener for the recipe card
         holder.itemView.setOnClickListener(v -> listener.onRecipeClick(recipe));
@@ -64,7 +56,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
 
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
         ImageView recipeImage;
-        TextView recipeName, recipeDescription, recipeDuration, recipeMeal;
+        TextView recipeName, recipeDescription, recipeDuration, recipeMeal1;
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,7 +64,7 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
             recipeName = itemView.findViewById(R.id.recipe_name);
             recipeDescription = itemView.findViewById(R.id.recipe_desc);
             recipeDuration = itemView.findViewById(R.id.recipe_time);
-            recipeMeal = itemView.findViewById(R.id.recipe_meal1_lbl);
+            recipeMeal1 = itemView.findViewById(R.id.recipe_meal1_lbl);
         }
     }
 
