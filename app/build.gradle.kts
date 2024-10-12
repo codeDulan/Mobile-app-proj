@@ -76,8 +76,10 @@ dependencies {
     // Kotlin script runtime
     implementation(kotlin("script-runtime"))
 
-    // IM/2021/001 - Load image from URL
-    implementation("com.squareup.picasso:picasso:2.71828")
+    // IM/2021/001 - Dependencies for ExoPlayer
+    implementation("androidx.media3:media3-exoplayer:1.4.1")
+    implementation("androidx.media3:media3-exoplayer-dash:1.4.1")
+    implementation("androidx.media3:media3-ui:1.4.1")
 
 
 
