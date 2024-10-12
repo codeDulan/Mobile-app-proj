@@ -1,5 +1,6 @@
 package com.example.dishdash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,9 @@ public class Home extends Fragment {
 
         recipeList = new ArrayList<>();
         recipeAdapter = new RecipeCardAdapter(recipeList, recipe -> {
-            // You can handle click events here if necessary
+            Intent intent = new Intent(getActivity(), ViewRecipe.class);
+            intent.putExtra("recipeId", recipe.getId()); // Pass the recipe ID to ViewRecipe
+            startActivity(intent);
         });
 
         // Set the adapter to the RecyclerView
@@ -51,14 +54,15 @@ public class Home extends Fragment {
                 recipeList.clear(); // Clear the list to avoid duplicates
                 for (DataSnapshot recipeSnapshot : snapshot.getChildren()) {
                     // Fetch each field from the database
+                    String id = recipeSnapshot.getKey();  // Get the recipe ID from the key
                     String name = recipeSnapshot.child("name").getValue(String.class);
                     String description = recipeSnapshot.child("description").getValue(String.class);
                     String time = recipeSnapshot.child("time").getValue(String.class);
                     String category = recipeSnapshot.child("category").getValue(String.class);
-                    String imageUrl = recipeSnapshot.child("image").getValue(String.class); // Image URL
+                    String imageUrl = recipeSnapshot.child("image").getValue(String.class);
 
-                    // Add the RecipeCard object to the list
-                    recipeList.add(new RecipeCard(name, description, time, category, imageUrl));
+                    // Create the RecipeCard object and add it to the list
+                    recipeList.add(new RecipeCard(id, name, description, time, category, imageUrl));
                 }
                 // Notify adapter about data changes
                 recipeAdapter.notifyDataSetChanged();

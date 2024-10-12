@@ -2,6 +2,7 @@ package com.example.dishdash;
 
 public class RecipeCard {
 
+    private String id;
     private String name;
     private String description;
     private String duration;
@@ -10,6 +11,20 @@ public class RecipeCard {
 
     public RecipeCard() {
         // Default constructor required for calls to DataSnapshot.getValue(RecipeCard.class)
+    }
+
+    // Constructor including ID
+    public RecipeCard(String id, String name, String description, String duration, String mealType, String imageURL) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
+        this.mealType = mealType;
+        this.imageURL = imageURL;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -30,13 +45,5 @@ public class RecipeCard {
 
     public String getImageURL() {
         return imageURL;
-    }
-
-    public RecipeCard(String name, String description, String duration, String mealType, String imageURL) {
-        this.name = name;
-        this.description = description;
-        this.duration = duration;
-        this.mealType = mealType;
-        this.imageURL = imageURL;
     }
 }
