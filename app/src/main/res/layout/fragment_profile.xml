@@ -28,18 +28,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+
                 <!-- Profile Image -->
+                <Button
+                    android:id="@+id/settingbtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginStart="340dp"
+                    android:background="#00FFFFFF"
+                    android:foreground="@drawable/setting" />
+
                 <ImageView
                     android:id="@+id/profile_picture"
                     android:layout_width="161dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="80dp"
                     android:src="@drawable/alice" />
 
                 <!-- User Name -->
@@ -64,12 +75,15 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
+
+
                 <!-- RecyclerView for Recipes -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/lookrecipe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp" />
+
 
             </LinearLayout>
         </ScrollView>
