@@ -7,8 +7,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,13 +24,12 @@ public class ViewRecipe extends AppCompatActivity {
 
     private TextView RecipeTitle, Description, Ingredients, Time, Meal, Instructions, RecipeOwner;
     private VideoView RecipeVideo;
-    private ImageButton FavouriteButton, ShareButton;
+    private ImageButton Favourite, Share;
     private ImageView ProfilePicture;
-    private DatabaseReference recipeRef, userRef, userFavRef;
+    private DatabaseReference recipeRef, userRef, userFavoritesRef;
     private FirebaseAuth mAuth;
     private boolean isFavorite = false; // Track whether a recipe is favorite or not
     private String recipeId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class ViewRecipe extends AppCompatActivity {
         Instructions = findViewById(R.id.tv_instructions);
         RecipeOwner = findViewById(R.id.tv_recipe_owner);
         ProfilePicture = findViewById(R.id.img_recipe_owner);
-        FavouriteButton = findViewById(R.id.btn_heart_viewrecipe); // Heart button
+        Favourite = findViewById(R.id.btn_heart_viewrecipe); // Heart button
 
         // Back button logic
         ImageButton backButton = findViewById(R.id.btn_back_viewrecipe);
@@ -59,7 +58,7 @@ public class ViewRecipe extends AppCompatActivity {
 
         // Retrieve recipe ID passed from the previous activity
         Intent intent = getIntent();
-        String recipeId = intent.getStringExtra("recipeId");
+        recipeId = intent.getStringExtra("recipeId");
 
         // Log to check if recipeId is null
         Log.d("ViewRecipe", "Recipe ID: " + recipeId);
@@ -70,16 +69,16 @@ public class ViewRecipe extends AppCompatActivity {
             return;
         }
 
-        // Get a reference to Firebase database
+        // Get references to Firebase database
         recipeRef = FirebaseDatabase.getInstance().getReference("recipes").child(recipeId);
-        userFavRef = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("favorites");
+        userFavoritesRef = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("favorites");
 
         // Fetch the recipe data and Favorite status
         fetchRecipeDetails(recipeId);
         checkFavoriteStatus(userId, recipeId);
 
         // Set up heart button click listener to toggle favorite
-        FavouriteButton.setOnClickListener(v -> toggleFavoriteStatus(userId, recipeId));
+        Favourite.setOnClickListener(v -> toggleFavoriteStatus(userId, recipeId));
     }
 
     private void fetchRecipeDetails(String recipeId) {
@@ -146,14 +145,14 @@ public class ViewRecipe extends AppCompatActivity {
                 // Set the author details
                 RecipeOwner.setText(authorName);
 
-                // Load profile image with Glide
-                if (authorImageUrl != null) {
+                // Only load the image if the activity is not destroyed
+                if (!isDestroyed()) {
                     Glide.with(ViewRecipe.this)
                             .load(authorImageUrl)
                             .placeholder(R.drawable.img_placeholder)
                             .into(ProfilePicture);
                 } else {
-                    Log.e("ViewRecipe", "Author image URL is null for ID: " + authorId);
+                    Log.e("ViewRecipe", "Activity is destroyed. Skipping Glide load.");
                 }
             }
 
@@ -173,9 +172,6 @@ public class ViewRecipe extends AppCompatActivity {
         // Load the video if not null
         if (videoUrl != null && !videoUrl.isEmpty()) {
             RecipeVideo.setVideoPath(videoUrl);
-
-//            Play automatically
-//            RecipeVideo.start();
         } else {
             Log.e("ViewRecipe", "Video URL is empty or null for recipe ID.");
         }
@@ -183,17 +179,17 @@ public class ViewRecipe extends AppCompatActivity {
 
     // Check if the recipe is in favorites
     private void checkFavoriteStatus(String userId, String recipeId) {
-        userFavRef.child(recipeId).addListenerForSingleValueEvent(new ValueEventListener() {
+        userFavoritesRef.child(recipeId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     // Recipe is a favorite
                     isFavorite = true;
-                    FavouriteButton.setImageResource(R.drawable.ic_favorite_40dp_fill);
+                    Favourite.setImageResource(R.drawable.ic_favorite_40dp_fill);
                 } else {
                     // Recipe is not a favorite
                     isFavorite = false;
-                    FavouriteButton.setImageResource(R.drawable.ic_favorite_40dp);
+                    Favourite.setImageResource(R.drawable.ic_favorite_40dp);
                 }
             }
 
@@ -208,16 +204,16 @@ public class ViewRecipe extends AppCompatActivity {
     private void toggleFavoriteStatus(String userId, String recipeId) {
         if (isFavorite) {
             // Remove from favorites
-            userFavRef.child(recipeId).removeValue().addOnSuccessListener(aVoid -> {
+            userFavoritesRef.child(recipeId).removeValue().addOnSuccessListener(aVoid -> {
                 isFavorite = false;
-                FavouriteButton.setImageResource(R.drawable.ic_favorite_40dp); // Default heart icon
+                Favourite.setImageResource(R.drawable.ic_favorite_40dp); // Default heart icon
                 Toast.makeText(ViewRecipe.this, "Removed from Favorites", Toast.LENGTH_SHORT).show();
             });
         } else {
             // Add to favorites
-            userFavRef.child(recipeId).setValue(true).addOnSuccessListener(aVoid -> {
+            userFavoritesRef.child(recipeId).setValue(true).addOnSuccessListener(aVoid -> {
                 isFavorite = true;
-                FavouriteButton.setImageResource(R.drawable.ic_favorite_40dp_fill); // Filled heart icon
+                Favourite.setImageResource(R.drawable.ic_favorite_40dp_fill); // Filled heart icon
                 Toast.makeText(ViewRecipe.this, "Added to Favorites", Toast.LENGTH_SHORT).show();
             });
         }
