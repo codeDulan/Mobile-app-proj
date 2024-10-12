@@ -38,8 +38,8 @@
                 android:contentDescription="Add to Favourites"
                 app:layout_constraintEnd_toStartOf="@+id/btn_share_viewrecipe"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_favorite_40dp_e6b980"
-                app:tint="@color/primaryColor" />
+                app:srcCompat="@drawable/ic_favorite_40dp"
+                />
 
             <ImageButton
                 android:id="@+id/btn_share_viewrecipe"
