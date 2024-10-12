@@ -11,10 +11,11 @@ public class Recipe {
     private String image;
     private String category;
     private String authorId;
+    private String videoUrl;
 
     public Recipe() {}
 
-    public Recipe(String name, String description, String time, String ingredients, String instructions, String image, String authorId, String category ) {
+    public Recipe(String name, String description, String time, String ingredients, String instructions, String image, String authorId, String category, String videoUrl ) {
 
         this.name = name;
         this.description = description;
@@ -24,6 +25,15 @@ public class Recipe {
         this.image = image;
         this.category = category;
         this.authorId = authorId;
+        this.videoUrl = videoUrl;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
     public String getId() {

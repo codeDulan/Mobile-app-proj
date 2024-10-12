@@ -3,9 +3,11 @@ package com.example.dishdash;
 import static java.lang.System.currentTimeMillis;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dishdash.databinding.ActivityAddRecipeWindowBinding;
@@ -30,9 +33,13 @@ import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import android.media.MediaMetadataRetriever;
+
 
 public class AddRecipeWindow extends AppCompatActivity {
 
@@ -41,6 +48,11 @@ public class AddRecipeWindow extends AppCompatActivity {
     private boolean isImageSelected = false;
     private Bitmap bitmap;
     private ProgressDialog dialog;
+    private static final int PICK_VIDEO_REQUEST = 2;
+    private String uploadedImageUrl = null;
+    private String uploadedVideoUrl = null;
+    private Recipe recipe;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +62,11 @@ public class AddRecipeWindow extends AppCompatActivity {
 
         loadCategories();
 
-        binding.publishBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.publishBtn.setOnClickListener(view -> getData());
 
-                getData();
-            }
-        });
+        binding.resipeVideo.setOnClickListener(view -> pickVideo());
 
-        binding.resipeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickImage();
-            }
-        });
+        binding.resipeImage.setOnClickListener(view -> pickImage());
     }
 
     private void loadCategories() {
@@ -73,17 +76,14 @@ public class AddRecipeWindow extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists() && snapshot.hasChildren()) {
-                    // Creating a list to store the categories
                     List<String> categoriesList = new ArrayList<>();
-                    categoriesList.add("Select a category"); // Default option
+                    categoriesList.add("Select a category");
 
-                    // Iterate through the categories in Firebase
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         String category = dataSnapshot.getValue(String.class);
                         categoriesList.add(category);
                     }
 
-                    // Setting the categories to the spinner
                     ArrayAdapter<String> myAdapter = new ArrayAdapter<>(AddRecipeWindow.this, android.R.layout.simple_spinner_item, categoriesList);
                     myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     select = findViewById(R.id.static_spinner);
@@ -99,7 +99,6 @@ public class AddRecipeWindow extends AppCompatActivity {
     }
 
     private void pickImage() {
-
         PickImageDialog.build(new PickSetup()).show(AddRecipeWindow.this).setOnPickResult(r -> {
             Log.e("ProfileWindow", "onPickResult: " + r.getUri());
             binding.resipeImage.setImageBitmap(r.getBitmap());
@@ -108,7 +107,6 @@ public class AddRecipeWindow extends AppCompatActivity {
             isImageSelected = true;
 
         }).setOnPickCancel(() -> Toast.makeText(AddRecipeWindow.this, "Pick Cancelled", Toast.LENGTH_SHORT).show());
-
     }
 
     private void getData() {
@@ -129,31 +127,23 @@ public class AddRecipeWindow extends AppCompatActivity {
             binding.ingredients.setError("Please enter ingredients");
         } else if (instructions.isEmpty()) {
             binding.instructions.setError("Please enter instructions");
-
         } else if (category.equals("Select a category")) {
             Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show();
-
         } else if (!isImageSelected) {
             Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
-
         } else {
-
             dialog = new ProgressDialog(this);
             dialog.setMessage("Uploading recipe...");
             dialog.setCancelable(false);
             dialog.show();
 
-            Recipe recipe = new Recipe(title, description, time, ingredients, instructions, "", FirebaseAuth.getInstance().getUid(), category);
+            recipe = new Recipe(title, description, time, ingredients, instructions, "", FirebaseAuth.getInstance().getUid(), category, "");
 
             uploadImage(recipe);
-
         }
     }
 
-    private String uploadImage(Recipe recipe) {
-
-        final String[] url = {""};
-
+    private void uploadImage(Recipe recipe) {
         String id = currentTimeMillis() + "";
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child("images/" + id + "_recipe.jpg");
@@ -163,41 +153,91 @@ public class AddRecipeWindow extends AppCompatActivity {
         UploadTask uploadTask = storageRef.putBytes(data);
 
         uploadTask.continueWithTask(task -> {
-
             if (!task.isSuccessful()) {
                 throw Objects.requireNonNull(task.getException());
             }
-
-            // Getting the download URL
             return storageRef.getDownloadUrl();
-
         }).addOnCompleteListener(task -> {
-
             if (task.isSuccessful()) {
-                Uri downloadUri = task.getResult();
-
-
-                url[0] = downloadUri.toString();
-                Toast.makeText(AddRecipeWindow.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
-                saveDataInDatabase(recipe, url[0]);
-
-
+                uploadedImageUrl = task.getResult().toString();
+                checkAndSaveData(recipe);
             } else {
                 Toast.makeText(AddRecipeWindow.this, "Error uploading image", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
-                Log.e("DatabaseError", "Error uploading image:");
             }
         });
-        return url[0];
     }
 
-    private void saveDataInDatabase(Recipe recipe, String url) {
+    private void pickVideo() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_VIDEO_REQUEST);
+    }
 
-        recipe.setImage(url);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri selectedVideoUri = data.getData();
+            binding.resipeVideo.setImageURI(selectedVideoUri);
+
+            // Display the thumbnail of the video
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(this, selectedVideoUri);
+
+            // Get a frame at time 0 (the start of the video) to use as a thumbnail
+            Bitmap thumbnail = retriever.getFrameAtTime(0);
+
+            // Set the thumbnail to the ImageView
+            binding.resipeVideo.setImageBitmap(thumbnail);
+            binding.resipeVideo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+
+            try {
+                retriever.release();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            uploadVideo(selectedVideoUri);
+        }
+    }
+
+    private void uploadVideo(Uri videoUri) {
+        String id = currentTimeMillis() + "";
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference().child("videos/" + id + "_recipe.mp4");
+
+        storageRef.putFile(videoUri).continueWithTask(task -> {
+            if (!task.isSuccessful()) {
+                throw Objects.requireNonNull(task.getException());
+            }
+            return storageRef.getDownloadUrl();
+        }).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                uploadedVideoUrl = task.getResult().toString();
+                checkAndSaveData(recipe);
+            } else {
+                Toast.makeText(AddRecipeWindow.this, "Error uploading video", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void checkAndSaveData(Recipe recipe) {
+        if (uploadedImageUrl != null || uploadedVideoUrl != null) {
+            saveDataInDatabase(recipe, uploadedImageUrl, uploadedVideoUrl);
+        }
+    }
+
+    private void saveDataInDatabase(Recipe recipe, String imageUrl, String videoUrl) {
+        recipe.setImage(imageUrl);
+        recipe.setVideoUrl(videoUrl);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("recipes");
         String id = reference.push().getKey();
         recipe.setId(id);
+
         if (id != null) {
             reference.child(id).setValue(recipe).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
