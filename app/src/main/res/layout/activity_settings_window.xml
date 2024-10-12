@@ -175,7 +175,7 @@
         app:layout_constraintVertical_bias="0.666" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/btn_logout"
         android:layout_width="163dp"
         android:layout_height="63dp"
         android:fontFamily="@font/lexend_bold"

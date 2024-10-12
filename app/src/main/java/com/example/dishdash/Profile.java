@@ -50,6 +50,16 @@ public class Profile extends Fragment implements IPickResult {
         // Load profile data
         loadProfile();
 
+        // Move to settings window
+        binding.settingbtn.setOnClickListener(view -> {
+            if (getActivity() != null) {
+                Intent intent = new Intent(getActivity(), SettingsWindow.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getContext(), "Activity is null", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // Handle profile image change button click
         binding.profilePicture.setOnClickListener(v -> {
             PickImageDialog.build(new PickSetup()).show(requireActivity());
@@ -68,12 +78,14 @@ public class Profile extends Fragment implements IPickResult {
             }
         });
 
+
         return binding.getRoot();
     }
 
+
     private void loadProfile() {
         // Load user data from Firebase
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -117,33 +129,58 @@ public class Profile extends Fragment implements IPickResult {
 
     private void uploadImage(Bitmap bitmap) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference().child("images/" + FirebaseAuth.getInstance().getUid() + "image.jpg");
+        String imagePath = "images/" + FirebaseAuth.getInstance().getUid() + "/profile_image_" + System.currentTimeMillis() + ".jpg";
+        StorageReference storageRef = storage.getReference().child(imagePath);
 
+        // Compress the image to reduce file size
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);  // Compress with 80% quality
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = storageRef.putBytes(data);
-        uploadTask.continueWithTask(task -> {
+        uploadTask.addOnFailureListener(e -> {
+            Log.e("ImageUploadError", "Failed to upload image: " + e.getMessage());
+            Toast.makeText(getContext(), "Image upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }).continueWithTask(task -> {
             if (!task.isSuccessful()) {
                 throw Objects.requireNonNull(task.getException());
             }
+            // Return the download URL from Firebase Storage
             return storageRef.getDownloadUrl();
         }).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Uri downloadUri = task.getResult();
-                user.setImage(Objects.requireNonNull(downloadUri).toString());
+                Log.d("ImageUploadSuccess", "Image uploaded successfully. Download URL: " + downloadUri);
 
-                // Save updated user data to Firebase
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-                reference.child(FirebaseAuth.getInstance().getUid()).setValue(user);
-
-                Toast.makeText(getContext(), "Profile image updated successfully!", Toast.LENGTH_SHORT).show();
+                // Update user's profile image URL in Firebase Realtime Database
+                updateProfileImageInDatabase(downloadUri.toString());
             } else {
-                Log.e("DatabaseError", "Error uploading image");
+                Log.e("ImageUploadError", "Failed to get download URL");
+                Toast.makeText(getContext(), "Failed to retrieve image URL", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    private void updateProfileImageInDatabase(String imageUrl) {
+        // Ensure the user object is initialized
+        if (user != null) {
+            user.setImage(imageUrl);
+
+            // Save the updated user data back to Firebase Realtime Database
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+            reference.child(FirebaseAuth.getInstance().getUid()).setValue(user)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(getContext(), "Profile image updated successfully!", Toast.LENGTH_SHORT).show();
+                        Log.d("ProfileUpdateSuccess", "User profile updated in Firebase Realtime Database.");
+                    }).addOnFailureListener(e -> {
+                        Log.e("DatabaseError", "Failed to update user profile: " + e.getMessage());
+                    });
+        } else {
+            Log.e("UserError", "User object is null, cannot update profile image.");
+        }
+    }
+
+
 
     private void setupRecyclerView() {
         // Initialize your data source
