@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,7 @@ public class Home extends Fragment {
     private RecipeCardAdapter recipeAdapter;
     private List<RecipeCard> recipeList;
     private DatabaseReference databaseReference;
+    private ImageButton btnBreakfast, btnLunch, btnDinner, btnIndian, btnChinese, btnItalian, btnSoups, btnDesserts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class Home extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         recipeList = new ArrayList<>();
-        recipeAdapter = new RecipeCardAdapter(recipeList, recipe -> {
+        recipeAdapter = new RecipeCardAdapter(recipeList, (RecipeCard recipe) -> {
             Intent intent = new Intent(getActivity(), ViewRecipe.class);
             intent.putExtra("recipeId", recipe.getId()); // Pass the recipe ID to ViewRecipe
             startActivity(intent);
@@ -72,6 +74,63 @@ public class Home extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle possible errors
             }
+        });
+
+        // Initializing the buttons for categories
+        btnBreakfast = view.findViewById(R.id.btn_breakfast);
+        btnBreakfast.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CategoryWindow.class);
+            intent.putExtra("category", "breakfast"); // Pass the category name to CategoryWindow
+            startActivity(intent);
+        });
+
+        btnLunch = view.findViewById(R.id.btn_lunch);
+        btnLunch.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CategoryWindow.class);
+            intent.putExtra("category", "lunch");
+            startActivity(intent);
+        });
+
+        btnDinner = view.findViewById(R.id.btn_dinner);
+        btnDinner.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CategoryWindow.class);
+            intent.putExtra("category", "dinner");
+            startActivity(intent);
+        });
+
+        btnIndian = view.findViewById(R.id.btn_indian);
+        btnIndian.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CategoryWindow.class);
+            intent.putExtra("category", "indian");
+            startActivity(intent);
+        });
+
+        btnChinese = view.findViewById(R.id.btn_chinese);
+        btnChinese.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CategoryWindow.class);
+            intent.putExtra("category", "chinese");
+            startActivity(intent);
+        });
+
+        btnItalian = view.findViewById(R.id.btn_italian);
+        btnItalian.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CategoryWindow.class);
+            intent.putExtra("category", "italian");
+            startActivity(intent);
+        });
+
+        btnSoups = view.findViewById(R.id.btn_soups);
+        btnSoups.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CategoryWindow.class);
+            intent.putExtra("category", "soups");
+            startActivity(intent);
+        });
+
+        btnDesserts = view.findViewById(R.id.btn_desserts);
+        btnDesserts.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CategoryWindow.class);
+            intent.putExtra("category", "desserts");
+            startActivity(intent);
         });
 
         return view;
