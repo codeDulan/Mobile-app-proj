@@ -1,6 +1,7 @@
 package com.example.dishdash;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -19,6 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
 public class ViewRecipe extends AppCompatActivity {
 
@@ -39,6 +43,12 @@ public class ViewRecipe extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         String userId = mAuth.getCurrentUser().getUid(); // Get current logged-in user ID
+
+        //share functionality
+        Share = findViewById(R.id.btn_share_viewrecipe);
+        Share.setOnClickListener(v -> {
+            createDynamicLink(recipeId);
+        });
 
         // Find views
         RecipeTitle = findViewById(R.id.tv_recipe_title);
@@ -80,6 +90,37 @@ public class ViewRecipe extends AppCompatActivity {
         // Set up heart button click listener to toggle favorite
         Favourite.setOnClickListener(v -> toggleFavoriteStatus(userId, recipeId));
     }
+
+
+
+
+    // Function to create and share the dynamic link
+    private void createDynamicLink(String recipeId) {
+
+        String dynamicLinkDomain = "https://dishdash.page.link";
+
+        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse("https://dishdash.page.link/recipe?recipeId=" + recipeId))  // Custom deep link
+                .setDomainUriPrefix(dynamicLinkDomain)  // Your Firebase dynamic link domain
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder()
+                        .setMinimumVersion(1)  // Compatible for minimum app version to open the link
+                        .build())
+                .buildDynamicLink();
+
+        // Convert the dynamic link to a URI
+        Uri dynamicLinkUri = dynamicLink.getUri();
+
+        // Share the dynamic link via Intent
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out this recipe: " + dynamicLinkUri.toString());
+        sendIntent.setType("text/plain");
+
+        // Start the share Intent
+        Intent shareIntent = Intent.createChooser(sendIntent, "Share Recipe");
+        startActivity(shareIntent);
+    }
+
 
     private void fetchRecipeDetails(String recipeId) {
         recipeRef.addValueEventListener(new ValueEventListener() {
