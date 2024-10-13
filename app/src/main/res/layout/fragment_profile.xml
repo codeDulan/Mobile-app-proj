@@ -43,8 +43,8 @@
                     android:layout_height="30dp"
                     android:layout_marginTop="36dp"
                     android:layout_marginStart="340dp"
-                    android:background="#00FFFFFF"
-                    android:foreground="@drawable/setting" />
+                    android:background="@drawable/logout"
+                     />
 
                 <ImageView
                     android:id="@+id/profile_picture"

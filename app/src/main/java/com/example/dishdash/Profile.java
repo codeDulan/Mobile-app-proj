@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.example.dishdash.databinding.FragmentProfileBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +43,8 @@ public class Profile extends Fragment implements IPickResult {
 
     private FragmentProfileBinding binding;
     private User user;
+    private FirebaseAuth auth;
+    private GoogleSignInClient gsc;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -50,15 +55,38 @@ public class Profile extends Fragment implements IPickResult {
         // Load profile data
         loadProfile();
 
-        // Move to settings window
+       //========Logout process===================================================
+        // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance();
+
+        // Initialize GoogleSignInClient
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        gsc = GoogleSignIn.getClient(requireContext(), gso);  // Initialize Google sign-in client
+
+        // Set up click listener for the settings button to perform logout
         binding.settingbtn.setOnClickListener(view -> {
-            if (getActivity() != null) {
-                Intent intent = new Intent(getActivity(), SettingsWindow.class);
+            // Sign out from Firebase
+            auth.signOut();
+
+            // Sign out from Google
+            gsc.signOut().addOnCompleteListener(task -> {
+                // Display a toast message
+                Toast.makeText(getContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+
+                // Redirect to the LoginWindow after signing out
+                Intent intent = new Intent(getActivity(), LoginWindow.class);
                 startActivity(intent);
-            } else {
-                Toast.makeText(getContext(), "Activity is null", Toast.LENGTH_SHORT).show();
-            }
+
+                // Finish the current activity to prevent the user from coming back with the back button
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
+            });
         });
+        //=========================================================================
+
 
         // Handle profile image change button click
         binding.profilePicture.setOnClickListener(v -> {
