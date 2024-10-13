@@ -68,6 +68,13 @@ public class RecipeCardAdapter extends RecyclerView.Adapter<RecipeCardAdapter.Re
         }
     }
 
+    public void updateRecipeList(List<RecipeCard> newRecipeList) {
+        recipeList.clear();
+        recipeList.addAll(newRecipeList);
+        notifyDataSetChanged(); // Refresh the RecyclerView with the updated data
+    }
+
+
     // The interface for handling clicks
     public interface OnRecipeClickListener {
         void onRecipeClick(RecipeCard recipe);
