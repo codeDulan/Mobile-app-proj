@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,7 +26,9 @@ public class Home extends Fragment {
 
     private RecyclerView recyclerView;
     private RecipeCardAdapter recipeAdapter;
+    private SearchView searchView;
     private List<RecipeCard> recipeList;
+    private List<RecipeCard> allRecipes; // To hold all recipes
     private DatabaseReference databaseReference;
     private ImageButton btnBreakfast, btnLunch, btnDinner, btnIndian, btnChinese, btnItalian, btnSoups, btnDesserts;
 
@@ -33,8 +36,11 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        searchView = view.findViewById(R.id.search_bar);
+
         recyclerView = view.findViewById(R.id.homeScreen_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         recipeList = new ArrayList<>();
         recipeAdapter = new RecipeCardAdapter(recipeList, (RecipeCard recipe) -> {
@@ -46,6 +52,23 @@ public class Home extends Fragment {
         // Set the adapter to the RecyclerView
         recyclerView.setAdapter(recipeAdapter);
 
+        // Listen for search input and update RecyclerView accordingly
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Perform search when the user submits the search
+                filterRecipes(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Perform search as the user types
+                filterRecipes(newText);
+                return false;
+            }
+        });
+
         // Get a reference to the Firebase database
         databaseReference = FirebaseDatabase.getInstance().getReference("recipes");
 
@@ -53,6 +76,7 @@ public class Home extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                allRecipes = new ArrayList<>();
                 recipeList.clear(); // Clear the list to avoid duplicates
                 for (DataSnapshot recipeSnapshot : snapshot.getChildren()) {
                     // Fetch each field from the database
@@ -65,6 +89,7 @@ public class Home extends Fragment {
 
                     // Create the RecipeCard object and add it to the list
                     recipeList.add(new RecipeCard(id, name, description, time, category, imageUrl));
+                    allRecipes.add(new RecipeCard(id, name, description, time, category, imageUrl));
                 }
                 // Notify adapter about data changes
                 recipeAdapter.notifyDataSetChanged();
@@ -136,4 +161,30 @@ public class Home extends Fragment {
         return view;
 
     }
+
+    private void filterRecipes(String query) {
+        List<RecipeCard> filteredList = new ArrayList<>();
+
+        // If the query is empty, reload all recipes
+        if (query.isEmpty()) {
+            // Reload all recipes when the search field is cleared
+            filteredList.addAll(allRecipes);  // Use allRecipes to reset the list
+        } else {
+            for (RecipeCard recipe : allRecipes) {  // Loop through all recipes
+                // Perform a case-insensitive search
+                if (recipe.getName().toLowerCase().contains(query.toLowerCase()) ||
+                        recipe.getDescription().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(recipe);
+                }
+            }
+        }
+
+        // Update the adapter with the filtered or full list
+        recipeAdapter.updateRecipeList(filteredList);
+    }
+
+
+
+
+
 }
