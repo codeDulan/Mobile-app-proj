@@ -50,8 +50,9 @@
                 android:id="@+id/recipe_starbg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="100dp"
                 android:src="@drawable/whitebox_small"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="@id/recipe_img_card"
                 app:layout_constraintStart_toStartOf="@id/recipe_img_card"
                 app:layout_constraintTop_toTopOf="@id/recipe_img_card" />
@@ -62,6 +63,7 @@
                 android:layout_height="15dp"
                 android:layout_marginEnd="6dp"
                 android:src="@drawable/star"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/recipe_starbg"
                 app:layout_constraintEnd_toEndOf="@+id/recipe_starbg"
                 app:layout_constraintTop_toTopOf="@+id/recipe_starbg" />
@@ -74,6 +76,7 @@
                 android:fontFamily="@font/lexend"
                 android:text="4.5"
                 android:textSize="10sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/recipe_starbg"
                 app:layout_constraintStart_toStartOf="@+id/recipe_starbg"
                 app:layout_constraintTop_toTopOf="@+id/recipe_starbg" />
