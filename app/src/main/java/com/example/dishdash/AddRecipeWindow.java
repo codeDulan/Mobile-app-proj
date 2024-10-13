@@ -46,6 +46,7 @@ public class AddRecipeWindow extends AppCompatActivity {
     ActivityAddRecipeWindowBinding binding;
     Spinner select;
     private boolean isImageSelected = false;
+    private boolean isVideoUploaded = false;
     private Bitmap bitmap;
     private ProgressDialog dialog;
     private static final int PICK_VIDEO_REQUEST = 2;
@@ -62,7 +63,13 @@ public class AddRecipeWindow extends AppCompatActivity {
 
         loadCategories();
 
-        binding.publishBtn.setOnClickListener(view -> getData());
+        binding.publishBtn.setOnClickListener(view -> {
+            if (!isVideoUploaded) {
+            Toast.makeText(AddRecipeWindow.this, "Please upload a video first", Toast.LENGTH_SHORT).show();
+        } else {
+            getData();
+        }
+        });
 
         binding.resipeVideo.setOnClickListener(view -> pickVideo());
 
@@ -208,6 +215,9 @@ public class AddRecipeWindow extends AppCompatActivity {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child("videos/" + id + "_recipe.mp4");
 
+        // Disable the publish button during video upload
+        binding.publishBtn.setEnabled(false);
+
         storageRef.putFile(videoUri).continueWithTask(task -> {
             if (!task.isSuccessful()) {
                 throw Objects.requireNonNull(task.getException());
@@ -216,6 +226,11 @@ public class AddRecipeWindow extends AppCompatActivity {
         }).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 uploadedVideoUrl = task.getResult().toString();
+                isVideoUploaded = true;
+
+                // Enable the publish button when the video is uploaded
+                binding.publishBtn.setEnabled(true);
+
                 checkAndSaveData(recipe);
             } else {
                 Toast.makeText(AddRecipeWindow.this, "Error uploading video", Toast.LENGTH_SHORT).show();
@@ -225,7 +240,7 @@ public class AddRecipeWindow extends AppCompatActivity {
     }
 
     private void checkAndSaveData(Recipe recipe) {
-        if (uploadedImageUrl != null || uploadedVideoUrl != null) {
+        if (uploadedImageUrl != null && uploadedVideoUrl != null) {
             saveDataInDatabase(recipe, uploadedImageUrl, uploadedVideoUrl);
         }
     }

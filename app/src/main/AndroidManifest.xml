@@ -30,6 +30,7 @@
         <activity
             android:name=".SettingsWindow"
             android:exported="false" />
+
         <activity
             android:name=".AddRecipeWindow"
             android:exported="false"
