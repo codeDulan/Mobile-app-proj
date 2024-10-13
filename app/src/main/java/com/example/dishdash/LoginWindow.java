@@ -182,9 +182,11 @@ public class LoginWindow extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //facebook login=====================================
+        //========================facebook login=====================================
+
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+
         //===================================================
 
         if (requestCode == 1000) {

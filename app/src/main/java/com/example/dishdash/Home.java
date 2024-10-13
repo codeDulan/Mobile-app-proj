@@ -105,56 +105,56 @@ public class Home extends Fragment {
         btnBreakfast = view.findViewById(R.id.btn_breakfast);
         btnBreakfast.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CategoryWindow.class);
-            intent.putExtra("category", "breakfast"); // Pass the category name to CategoryWindow
+            intent.putExtra("category", "Breakfast"); // Pass the category name to CategoryWindow
             startActivity(intent);
         });
 
         btnLunch = view.findViewById(R.id.btn_lunch);
         btnLunch.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CategoryWindow.class);
-            intent.putExtra("category", "lunch");
+            intent.putExtra("category", "Lunch");
             startActivity(intent);
         });
 
         btnDinner = view.findViewById(R.id.btn_dinner);
         btnDinner.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CategoryWindow.class);
-            intent.putExtra("category", "dinner");
+            intent.putExtra("category", "Dinner");
             startActivity(intent);
         });
 
         btnIndian = view.findViewById(R.id.btn_indian);
         btnIndian.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CategoryWindow.class);
-            intent.putExtra("category", "indian");
+            intent.putExtra("category", "Indian");
             startActivity(intent);
         });
 
         btnChinese = view.findViewById(R.id.btn_chinese);
         btnChinese.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CategoryWindow.class);
-            intent.putExtra("category", "chinese");
+            intent.putExtra("category", "Chinese");
             startActivity(intent);
         });
 
         btnItalian = view.findViewById(R.id.btn_italian);
         btnItalian.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CategoryWindow.class);
-            intent.putExtra("category", "italian");
+            intent.putExtra("category", "Italian");
             startActivity(intent);
         });
 
         btnSoups = view.findViewById(R.id.btn_soups);
         btnSoups.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CategoryWindow.class);
-            intent.putExtra("category", "soups");
+            intent.putExtra("category", "Soups");
             startActivity(intent);
         });
 
         btnDesserts = view.findViewById(R.id.btn_desserts);
         btnDesserts.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CategoryWindow.class);
-            intent.putExtra("category", "desserts");
+            intent.putExtra("category", "Desserts");
             startActivity(intent);
         });
 
@@ -162,6 +162,7 @@ public class Home extends Fragment {
 
     }
 
+    //===========================Search functionality===============================
     private void filterRecipes(String query) {
         List<RecipeCard> filteredList = new ArrayList<>();
 

@@ -139,7 +139,7 @@ public class SignupWindow extends AppCompatActivity {
                                             Toast.makeText(SignupWindow.this, "Signup successful!", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(SignupWindow.this, HomeWindow2.class);
                                             startActivity(intent);
-                                            finish();  // Finish the activity to remove it from the back stack
+                                            finish();
                                         })
                                         .addOnFailureListener(e -> Toast.makeText(SignupWindow.this, "Failed to store user data.", Toast.LENGTH_SHORT).show());
 
